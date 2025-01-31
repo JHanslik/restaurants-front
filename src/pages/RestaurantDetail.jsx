@@ -39,7 +39,23 @@ export const RestaurantDetail = () => {
   };
 
   const handleAddReview = async (data) => {
-    await addReview(id, data);
+    try {
+      await addReview(id, data);
+      await fetchRestaurants();
+      toast.success("Avis ajouté avec succès");
+    } catch (error) {
+      toast.error("Erreur lors de l'ajout de l'avis");
+    }
+  };
+
+  const handleDeleteReview = async (reviewId) => {
+    try {
+      await deleteReview(id, reviewId);
+      await fetchRestaurants();
+      toast.success("Avis supprimé avec succès");
+    } catch (error) {
+      toast.error("Erreur lors de la suppression de l'avis");
+    }
   };
 
   if (loading) {
@@ -131,10 +147,7 @@ export const RestaurantDetail = () => {
             </div>
           )}
 
-          <ReviewList
-            reviews={restaurant.avis}
-            onDelete={(reviewId) => deleteReview(id, reviewId)}
-          />
+          <ReviewList reviews={restaurant.avis} onDelete={handleDeleteReview} />
         </div>
 
         {user && user._id === restaurant.userId && (

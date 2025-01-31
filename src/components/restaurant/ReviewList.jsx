@@ -1,7 +1,7 @@
 import { useAuth } from "../../hooks/useAuth";
 import { Button } from "../common/Button";
 
-export const ReviewList = ({ reviews, onDelete }) => {
+export const ReviewList = ({ reviews = [], onDelete }) => {
   const { user } = useAuth();
 
   if (!reviews?.length) {
@@ -13,19 +13,19 @@ export const ReviewList = ({ reviews, onDelete }) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
       {reviews.map((review) => (
         <div
           key={review._id}
           className="bg-gray-50 p-4 rounded-lg border border-gray-200"
         >
           <div className="flex justify-between items-start mb-2">
-            <div>
-              <div className="flex items-center mt-1">
+            <div className="flex items-center space-x-2">
+              <div className="flex">
                 {[...Array(5)].map((_, i) => (
                   <span
                     key={i}
-                    className={`text-lg ${
+                    className={`text-xl ${
                       i < review.note ? "text-yellow-400" : "text-gray-300"
                     }`}
                   >
@@ -33,14 +33,11 @@ export const ReviewList = ({ reviews, onDelete }) => {
                   </span>
                 ))}
               </div>
+              <span className="text-sm text-gray-600">
+                {new Date(review.date).toLocaleDateString()}
+              </span>
             </div>
-            <div className="text-sm text-gray-500">
-              {new Date(review.date).toLocaleDateString()}
-            </div>
-          </div>
-          <p className="text-gray-700">{review.commentaire}</p>
-          {user?._id === review.userId && (
-            <div className="mt-3 flex justify-end">
+            {user && user._id === review.userId && (
               <Button
                 variant="danger"
                 size="sm"
@@ -48,8 +45,9 @@ export const ReviewList = ({ reviews, onDelete }) => {
               >
                 Supprimer
               </Button>
-            </div>
-          )}
+            )}
+          </div>
+          <p className="text-gray-700">{review.commentaire}</p>
         </div>
       ))}
     </div>

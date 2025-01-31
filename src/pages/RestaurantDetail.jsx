@@ -147,7 +147,10 @@ export const RestaurantDetail = () => {
             </div>
           )}
 
-          <ReviewList reviews={restaurant.avis} onDelete={handleDeleteReview} />
+          <ReviewList
+            reviews={restaurant.avis}
+            onDelete={(reviewId) => deleteReview(id, reviewId)}
+          />
         </div>
 
         {user && user._id === restaurant.userId && (

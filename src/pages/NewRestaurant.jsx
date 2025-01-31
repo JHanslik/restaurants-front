@@ -5,11 +5,11 @@ import { useRestaurants } from "../hooks/useRestaurants";
 
 export const NewRestaurant = () => {
   const navigate = useNavigate();
-  const { addRestaurant, loading } = useRestaurants();
+  const { createRestaurant, loading } = useRestaurants();
 
   const handleSubmit = async (data) => {
     try {
-      const newRestaurant = await addRestaurant(data);
+      const newRestaurant = await createRestaurant(data);
       navigate(`/restaurants/${newRestaurant._id}`);
     } catch (error) {
       console.error("Erreur lors de l'ajout du restaurant:", error);

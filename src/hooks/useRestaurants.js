@@ -41,12 +41,9 @@ export const useRestaurants = () => {
   const fetchRestaurants = useCallback(async () => {
     try {
       setLoading(true);
-      console.log("Fetching restaurants...");
       const response = await restaurantService.getAll();
-      console.log("Restaurants received:", response);
       setRestaurants(response.restaurants || []);
     } catch (error) {
-      console.error("Error fetching restaurants:", error);
       toast.error("Erreur lors du chargement des restaurants");
       setRestaurants([]);
     } finally {

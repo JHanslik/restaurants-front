@@ -90,7 +90,7 @@ export const RestaurantDetail = () => {
                   <span
                     key={i}
                     className={`text-2xl ${
-                      i < restaurant.noteMoyenne
+                      i < (restaurant.noteMoyenne || 0)
                         ? "text-yellow-400"
                         : "text-gray-300"
                     }`}
@@ -100,8 +100,11 @@ export const RestaurantDetail = () => {
                 ))}
               </div>
               <span className="text-gray-600">
-                ({restaurant.noteMoyenne.toFixed(1)}/5 - {restaurant.nombreAvis}{" "}
-                avis)
+                {restaurant.noteMoyenne
+                  ? `(${restaurant.noteMoyenne.toFixed(1)}/5 - ${
+                      restaurant.nombreAvis || 0
+                    } avis)`
+                  : "Aucun avis"}
               </span>
             </div>
           </div>

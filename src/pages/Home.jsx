@@ -28,7 +28,7 @@ export const Home = () => {
       !filters.cuisine || restaurant.cuisine === filters.cuisine;
 
     const matchesNote =
-      !filters.note || restaurant.note >= parseInt(filters.note);
+      !filters.note || (restaurant.noteMoyenne || 0) >= parseInt(filters.note);
 
     return matchesSearch && matchesCuisine && matchesNote;
   });

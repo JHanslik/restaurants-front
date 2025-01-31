@@ -6,7 +6,7 @@ import { Button } from "../common/Button";
 export const RestaurantCard = ({ restaurant, onClick }) => {
   const { user } = useAuth();
   const { deleteRestaurant } = useRestaurants();
-  const { nom, cuisine, adresse, note, images, userId } = restaurant;
+  const { nom, cuisine, adresse, noteMoyenne, images, userId } = restaurant;
 
   const handleDelete = async (e) => {
     e.stopPropagation();
@@ -42,12 +42,19 @@ export const RestaurantCard = ({ restaurant, onClick }) => {
             <span
               key={i}
               className={`text-xl ${
-                i < note ? "text-yellow-400" : "text-gray-300"
+                i < (noteMoyenne || 0) ? "text-yellow-400" : "text-gray-300"
               }`}
             >
               ★
             </span>
           ))}
+          {noteMoyenne ? (
+            <span className="ml-2 text-sm text-gray-600">
+              ({noteMoyenne.toFixed(1)})
+            </span>
+          ) : (
+            <span className="ml-2 text-sm text-gray-500">Aucun avis</span>
+          )}
         </div>
       </div>
 

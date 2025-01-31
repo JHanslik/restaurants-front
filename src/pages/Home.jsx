@@ -61,23 +61,27 @@ export const Home = () => {
         onReset={resetFilters}
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredRestaurants && filteredRestaurants.length > 0 ? (
-          filteredRestaurants.map((restaurant) => (
-            <RestaurantCard
+      {filteredRestaurants && filteredRestaurants.length > 0 ? (
+        <div className="flex flex-wrap justify-center gap-6">
+          {filteredRestaurants.map((restaurant) => (
+            <div
               key={restaurant._id}
-              restaurant={restaurant}
-              onClick={() => navigate(`/restaurants/${restaurant._id}`)}
-            />
-          ))
-        ) : (
-          <div className="col-span-full text-center py-12">
-            <h2 className="text-xl text-gray-600">
-              Aucun restaurant ne correspond à vos critères
-            </h2>
-          </div>
-        )}
-      </div>
+              className="w-full sm:w-[calc(100%-2rem)] md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] max-w-md"
+            >
+              <RestaurantCard
+                restaurant={restaurant}
+                onClick={() => navigate(`/restaurants/${restaurant._id}`)}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-12">
+          <h2 className="text-xl text-gray-600">
+            Aucun restaurant ne correspond à vos critères
+          </h2>
+        </div>
+      )}
     </div>
   );
 };
